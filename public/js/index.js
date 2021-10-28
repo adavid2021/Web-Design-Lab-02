@@ -5,6 +5,7 @@ function showList(cars) {
         $('#car_list').append("<div class='car_block'></div>");
     }
 
+    // setting alternating colors for car block rows
     $.each($('.car_block'), function (idx) {
         if (idx % 2 === 0) {
             $(this).addClass('even_row');
@@ -13,6 +14,8 @@ function showList(cars) {
         }
     });
 
+    // a list of cars created from each of the car block class items
+    // each block has a button used by a user to mark one of the cars in their liked list (in the profile)
     $('#car_list .car_block')
         .append(function (idx) {
             const body = $(`<div class="row"></div>`);
@@ -24,7 +27,6 @@ function showList(cars) {
                 .append(`<div class="col-2 d-flex justify-content-end"><button class="btn btn-outline-primary">Like</button></div>`)
                 .on('click', function () {
                     testing($(this).parent().first()[0].innerText.trim());
-                    // console.log($(this).parent().first()[0].innerText);
             });
             return body;
         });
@@ -41,11 +43,12 @@ function testing(input){
     });
 }
 
+// if there is a user logged on, the name will show in the top right
 $(document).ready(function () {
     $.getJSON('/get_current_user').done(function (data) {
         user = data.data;
         if (data['message'] === "success") {
-            console.log("skejdbgaed: ",user);
+            console.log("found_user: ",user);
             $('.login').remove();
             $('#showname').text(data.data.fullname);
         } else {
@@ -54,6 +57,7 @@ $(document).ready(function () {
     });
 });
 
+// a list of car data (manually loaded JSON)
 let cars = [
     {
         "stock_num": "19913071",

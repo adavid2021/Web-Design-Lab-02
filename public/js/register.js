@@ -3,6 +3,7 @@ if (urlParams.get("error")) {
     $('#error_msg').text(urlParams.get("error"));
 }
 
+// when the user registers, do client side error checking to make sure the password and username are long enough
 $('form').on('submit', function () {
     let errorMessage = null
 
@@ -44,11 +45,6 @@ $('form').on('submit', function () {
             return false;
         }
     }
-    // console.log("pw: ",$('#password').val().length,$('#confirm').val().length);
-    // console.log("pw: ",$('#password').val());
-
-
-
 
     console.log("em is now: " + errorMessage);
 

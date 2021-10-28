@@ -1,3 +1,4 @@
+// the user account profile with the cars they liked, their name, preferred brand etc.
 function load_user(user) {
     console.log("after loading liked: ",user.liked);
     $('#name').text(user.fullname);

@@ -101,22 +101,7 @@ app.get("/get_all_cars", function (req, res) {
     });
 });
 
-// app.get('/get_car_by_id', function (req, res) {
-//     Car.findOne({"_id": req.query.car_id}, function (err, data) {
-//         if (err) {
-//             res.send({
-//                 "message": "error",
-//                 "data": {}
-//             });
-//         } else {
-//             res.send({
-//                 "message": "success",
-//                 "data": data
-//             })
-//         }
-//     });
-// });
-
+// given a URL /register, the user is redirected to the registration page
 app.get('/register', (req, res) => {
     if (req.query.error) {
         console.log("REGISTRATION ERROR line 122");
@@ -126,6 +111,8 @@ app.get('/register', (req, res) => {
     }
 });
 
+// when posting on the register page, a new passport user is authenticated based on data entered in
+// request body
 app.post('/register', (req, res) => {
     const newUser = {
         username: req.body.username,
@@ -161,6 +148,7 @@ app.get('/login', (req, res) => {
     }
 });
 
+// when a login is attempted, the request body username and password are authenticated using passport.js
 app.post('/login', (req, res) => {
     const user = new User({
         username: req.body.username,
@@ -219,6 +207,7 @@ app.get('/get_current_user', function (req, res) {
     }
 });
 
+// when a user likes a car once signed in, it is pushed to the mongo database into the user's liked list
 app.post("/like_car", (req, res) => {
     if (req.isAuthenticated()) {
         console.log("authenticated");
@@ -233,7 +222,6 @@ app.post("/like_car", (req, res) => {
             price: parseInt(req.body.infolist[3])
         }
 
-        console.log("user ", currentUser.username, " likes them a good ", carModel, " car!");
         User.updateOne(
             {username: currentUser.username, 'liked.price': {$ne: pushCar.price}},
             {
@@ -261,4 +249,3 @@ app.post("/like_car", (req, res) => {
         });
     }
 });
-// 'liked.price': {$ne: pushCar.price}
